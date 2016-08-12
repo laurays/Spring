@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="SistBBS">
+<select	 id="getBBSList" resultType="sist.co.model.SistBBSDTO">
+	SELECT * FROM SISTBBS ORDER BY REF DESC, STEP ASC
+</select>
+
+<insert id="InputBBS" parameterType="sist.co.model.SistBBSDTO">
+	INSERT INTO SISTBBS
+	VALUES(seq_sistbbs.NEXTVAL, #{id},0,0,0,#{title},#{content},SYSDATE,0,0,0)
+</insert>
+
+
+<select id="getBBS" parameterType="java.lang.Integer" resultType="sist.co.model.SistBBSDTO">
+SELECT * FROM SISTBBS
+WHERE SEQ=#{seq}
+</select>
+
+<!-- 
+<select id="getBBS" parameterType="java.lang.Integer" resultType="sist.co.model.SistBBSDTO">
+SELECT <![CDATA[REPLACE("CONTENT","\n","<br>"]]> FROM SISTBBS
+WHERE SEQ=#{seq}
+</select> 
+-->
+
+
+<update id="readcount" parameterType="java.lang.Integer">
+UPDATE SISTBBS SET READCOUNT=READCOUNT+1
+WHERE SEQ=#{seq}
+</update>
+
+</mapper>
+ 
+ 
+ 
